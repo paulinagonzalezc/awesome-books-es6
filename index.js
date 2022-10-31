@@ -86,9 +86,7 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
 });
 
 // Get Date Luxon
-document.getElementById('date').innerHTML = DateTime.now().toLocaleString(
-  DateTime.DATETIME_MED
-);
+document.getElementById('date').innerHTML = DateTime.now().toLocaleString(DateTime.DATETIME_MED);
 
 // Single Page Hiding event listeners
 list.addEventListener('click', () => {
