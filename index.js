@@ -5,7 +5,6 @@ import Book from './modules/BookClass.js';
 import { DateTime } from './modules/luxon.js';
 
 // Variables for Single Page
-
 const list = document.querySelector('#list');
 const addNew = document.querySelector('#add-new');
 const contact = document.querySelector('#contact');
@@ -76,25 +75,22 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 });
 
 // Event listener for removing a book
-
 document.querySelector('#book-list').addEventListener('click', (e) => {
   UI.deleteBook(e.target);
   const btnID = e.target.id;
   const arrValues = btnID.split('-');
   const idString = arrValues[arrValues.length - 1];
   const id = parseInt(idString, 10);
-  // Remove book from store
+  // Remove book from store depending on id
   store.removeBook(id);
 });
 
-// Date
-
+// Get Date Luxon
 document.getElementById('date').innerHTML = DateTime.now().toLocaleString(
   DateTime.DATETIME_MED
 );
 
-// Single Page Hiding
-
+// Single Page Hiding event listeners
 list.addEventListener('click', () => {
   tableContainer.classList.remove('hide');
   booksForm.classList.add('hide');
