@@ -1,50 +1,51 @@
 /* eslint-disable max-classes-per-file */
-class Book {
-  constructor(title, author, id) {
-    this.id = id;
-    this.title = title;
-    this.author = author;
-  }
-}
 
-class Store {
-  constructor() {
-    this.count = this.getBooks().length + 1;
-  }
+import Store from './modules/StoreClass.js';
+import Book from './modules/BookClass.js';
+// Variables for date
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
-  getBooks() {
-    if (localStorage.getItem('books') === null) {
-      this.books = [];
-    } else {
-      this.books = JSON.parse(localStorage.getItem('books'));
-    }
-    return this.books;
-  }
+const n = new Date();
+const hours = n.getHours();
+const minutes = n.getMinutes();
+const seconds = n.getSeconds();
+const y = n.getFullYear();
+const d = n.getDate();
+const m = monthNames[n.getMonth()];
 
-  addBook(book) {
-    const newBook = {
-      id: this.count,
-      title: book.title,
-      author: book.author,
-    };
+// Variables for Single Page
 
-    const books = this.getBooks();
-    books.push(newBook);
-    localStorage.setItem('books', JSON.stringify(books));
-    this.count += 1;
-  }
+const list = document.querySelector('#list');
+const addNew = document.querySelector('#add-new');
+const contact = document.querySelector('#contact');
+const tableContainer = document.querySelector('.books-table-container');
+const booksForm = document.querySelector('.book-form');
+const contactInfo = document.querySelector('.contact-info');
 
-  removeBook(id) {
-    const books = this.getBooks();
-    const filteredBooks = books.filter((book) => book.id !== id);
-    localStorage.setItem('books', JSON.stringify(filteredBooks));
-  }
-}
+// Book Class: represents a book object
 
-// Creating new Store
+// Store Class: Handles Storage
+
+// Creating new Store instance
 const store = new Store();
 
+// UI Class : Handles UI tasks
 class UI {
+  // Static so I don't have to instantiate
+
   static displayBooks() {
     const books = store.getBooks();
     books.forEach((book) => UI.addBookList(book));
@@ -74,8 +75,10 @@ class UI {
   }
 }
 
+// Event listener for UI
 document.addEventListener('DOMContentLoaded', UI.displayBooks);
 
+// Event listener for submit
 document.querySelector('#book-form').addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -83,14 +86,18 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
   const author = document.querySelector('#author').value;
   const id = store.count;
 
+  // New book instance when you submit
   const book = new Book(title, author, id);
 
+  // Sending book object submision to UI and storage
   UI.addBookList(book);
 
   store.addBook(book);
 
   UI.clearFields();
 });
+
+// Event listener for removing a book
 
 document.querySelector('#book-list').addEventListener('click', (e) => {
   UI.deleteBook(e.target);
@@ -102,38 +109,13 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
   store.removeBook(id);
 });
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+// Date
 
-const n = new Date();
-const hours = n.getHours();
-const minutes = n.getMinutes();
-const seconds = n.getSeconds();
-const y = n.getFullYear();
-const d = n.getDate();
-const m = monthNames[n.getMonth()];
 document.getElementById(
   'date'
 ).innerHTML = `${m} ${d} ${y}, ${hours}:${minutes}:${seconds}`;
 
-const list = document.querySelector('#list');
-const addNew = document.querySelector('#add-new');
-const contact = document.querySelector('#contact');
-const tableContainer = document.querySelector('.books-table-container');
-const booksForm = document.querySelector('.book-form');
-const contactInfo = document.querySelector('.contact-info');
+// Single Page Hiding
 
 list.addEventListener('click', () => {
   tableContainer.classList.remove('hide');
