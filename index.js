@@ -2,29 +2,7 @@
 
 import Store from './modules/StoreClass.js';
 import Book from './modules/BookClass.js';
-// Variables for date
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-const n = new Date();
-const hours = n.getHours();
-const minutes = n.getMinutes();
-const seconds = n.getSeconds();
-const y = n.getFullYear();
-const d = n.getDate();
-const m = monthNames[n.getMonth()];
+import { DateTime } from './modules/luxon.js';
 
 // Variables for Single Page
 
@@ -111,9 +89,9 @@ document.querySelector('#book-list').addEventListener('click', (e) => {
 
 // Date
 
-document.getElementById(
-  'date'
-).innerHTML = `${m} ${d} ${y}, ${hours}:${minutes}:${seconds}`;
+document.getElementById('date').innerHTML = DateTime.now().toLocaleString(
+  DateTime.DATETIME_MED
+);
 
 // Single Page Hiding
 
