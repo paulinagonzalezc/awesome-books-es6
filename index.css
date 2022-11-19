@@ -32,6 +32,17 @@ body {
 .menus ul li a {
   color: black;
   text-decoration: none;
+  transition: all 0.3s;
+}
+
+.menus ul li a:hover {
+  color: gray;
+  border: none;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #d1ebc3;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
 }
 
 .vertical-line {
